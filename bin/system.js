@@ -37,15 +37,23 @@ var reload = function (module) {
 var run = function (command) {
   return child_process.execSync(command).toString();
 };
-exports["read-file"] = read_file;
-exports["write-file"] = write_file;
-exports["file-exists?"] = file_exists63;
-exports["directory-exists?"] = directory_exists63;
-exports["path-separator"] = path_separator;
-exports["path-join"] = path_join;
-exports["get-environment-variable"] = get_environment_variable;
-exports.write = write;
-exports.exit = exit;
-exports.argv = argv;
-exports.reload = reload;
-exports.run = run;
+var __e14;
+if (typeof(exports) === "undefined") {
+  __e14 = {};
+} else {
+  __e14 = exports;
+}
+var __exports = __e14;
+__exports.read_file = read_file;
+__exports.write_file = write_file;
+__exports.file_exists63 = file_exists63;
+__exports.directory_exists63 = directory_exists63;
+__exports.path_separator = path_separator;
+__exports.path_join = path_join;
+__exports.get_environment_variable = get_environment_variable;
+__exports.write = write;
+__exports.exit = exit;
+__exports.argv = argv;
+__exports.reload = reload;
+__exports.run = run;
+__exports;

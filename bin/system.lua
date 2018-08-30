@@ -3,9 +3,9 @@ local function call_with_file(f, path, mode)
   if not h then
     error(e)
   end
-  local __x = f(h)
+  local __x358 = f(h)
   h.close(h)
-  return __x
+  return __x358
 end
 local function read_file(path)
   return call_with_file(function (f)
@@ -18,30 +18,30 @@ local function write_file(path, data)
   end, path, "w")
 end
 local function file_exists63(path)
-  local __f = io.open(path)
-  local __id = is63(__f)
-  local __e
-  if __id then
-    local __r6 = is63(__f.read(__f, 0)) or 0 == __f.seek(__f, "end")
-    __f.close(__f)
-    __e = __r6
+  local __f2 = io.open(path)
+  local __id62 = is63(__f2)
+  local __e14
+  if __id62 then
+    local __r86 = is63(__f2.read(__f2, 0)) or 0 == __f2.seek(__f2, "end")
+    __f2.close(__f2)
+    __e14 = __r86
   else
-    __e = __id
+    __e14 = __id62
   end
-  return __e
+  return __e14
 end
 local function directory_exists63(path)
-  local __f1 = io.open(path)
-  local __id1 = is63(__f1)
-  local __e1
-  if __id1 then
-    local __r8 = not __f1.read(__f1, 0) and not( 0 == __f1.seek(__f1, "end"))
-    __f1.close(__f1)
-    __e1 = __r8
+  local __f3 = io.open(path)
+  local __id63 = is63(__f3)
+  local __e15
+  if __id63 then
+    local __r88 = not __f3.read(__f3, 0) and not( 0 == __f3.seek(__f3, "end"))
+    __f3.close(__f3)
+    __e15 = __r88
   else
-    __e1 = __id1
+    __e15 = __id63
   end
-  return __e1
+  return __e15
 end
 local path_separator = char(_G.package.config, 0)
 local function path_join(...)
@@ -65,9 +65,22 @@ local function reload(module)
   return require(module)
 end
 local function run(command)
-  local __f2 = io.popen(command)
-  local __x2 = __f2.read(__f2, "*all")
-  __f2.close(__f2)
-  return __x2
+  local __f4 = io.popen(command)
+  local __x360 = __f4.read(__f4, "*all")
+  __f4.close(__f4)
+  return __x360
 end
-return {["read-file"] = read_file, ["write-file"] = write_file, ["file-exists?"] = file_exists63, ["directory-exists?"] = directory_exists63, ["path-separator"] = path_separator, ["path-join"] = path_join, ["get-environment-variable"] = get_environment_variable, write = write, exit = exit, argv = argv, reload = reload, run = run}
+local __exports = exports or {}
+__exports.read_file = read_file
+__exports.write_file = write_file
+__exports.file_exists63 = file_exists63
+__exports.directory_exists63 = directory_exists63
+__exports.path_separator = path_separator
+__exports.path_join = path_join
+__exports.get_environment_variable = get_environment_variable
+__exports.write = write
+__exports.exit = exit
+__exports.argv = argv
+__exports.reload = reload
+__exports.run = run
+return __exports

@@ -78,7 +78,7 @@
                 (join! bs (bind k x))))))))))
 
 (define-macro arguments% (from)
-  `((get (get (get Array 'prototype) 'slice) 'call) arguments ,from))
+  `((get (get (get Array .prototype) .slice) .call) arguments ,from))
 
 (define-global bind* (args body)
   (let args1 ()
@@ -232,13 +232,20 @@
       (and (> n 96) (< n 123)) ; a-z
       (= n 95)))               ; _
 
+(define-global accessor-literal? (x)
+  (and (string? x)
+       (> (# x) 1)
+       (= (char x 0) ".")
+       (not (= (char x 1) "."))))
+
 (define id (id)
-  (let id1 (if (number-code? (code id 0)) "_" "")
-    (for i (# id)
-      (let (c (char id i)
+  (let (id0 (if (accessor-literal? id) (clip id 1) id)
+        id1 (if (number-code? (code id0 0)) "_" ""))
+    (for i (# id0)
+      (let (c (char id0 i)
             n (code c)
             c1 (if (and (= c "-")
-                        (not (= id "-")))
+                        (not (= id0 "-")))
                    "_"
                    (valid-code? n) c
                    (= i 0) (cat "_" n)
@@ -571,7 +578,7 @@
 (define-global expand (form)
   (lower (macroexpand form)))
 
-(target js: (set (get global 'require) |require|))
+(target js: (set (get global .require) |require|))
 (target js: (define run |eval|))
 
 (target lua: (define load1 (or |loadstring| |load|)))
@@ -706,9 +713,8 @@
                    (= (char t1 0) "{"))
               (infix-operator? t))
       (set t1 (cat "(" t1 ")")))
-    (if (and (string-literal? k)
-             (valid-id? (inner k)))
-        (cat t1 "." (inner k))
+    (if (accessor-literal? k)
+        (cat t1 "." k1)
       (cat t1 "[" k1 "]"))))
 
 (define-special %array forms

@@ -218,14 +218,12 @@
            (dec indent-level)))))
 
 (define-macro export names
-  (if (= target 'js)
-      `(do ,@(map (fn (k)
-                    `(set (get exports ',k) ,k))
-                  names))
-    (let x (obj)
-      (each k names
-        (set (get x k) k))
-      `(return (%object ,@(mapo (fn (x) x) x))))))
+  `(let exports (target js: (if (= (typeof exports) "undefined") (obj) exports)
+                        lua: (or exports (obj)))
+     ,@(map (fn (k)
+              `(set (get exports ,(cat "." k)) ,k))
+            names)
+     (target js: exports lua: (return exports))))
 
 (define-macro when-compiling body
   (eval `(do ,@body)))
