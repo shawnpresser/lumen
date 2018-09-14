@@ -1,0 +1,29 @@
+[package]
+name = "lumen-language"
+description = "A Lisp for Lua and JavaScript"
+license = "BSD-2-Clause"
+version = "0.1.0"
+authors = ["Scott Bell <scott@sctsm.com>", "Shawn Presser <shawnpresser@gmail.com>"]
+
+[dependencies]
+exec = "0.3.1"
+
+[[bin]]
+name = "lumen"
+path = "src/main.rs"
+
+[[bin]]
+name = "lumen-lua"
+path = "src/main.rs"
+
+[[bin]]
+name = "lumen-luajit"
+path = "src/main.rs"
+
+[[bin]]
+name = "lumen-node"
+path = "src/main.rs"
+
+[[bin]]
+name = "lumen-torch"
+path = "src/main.rs"
